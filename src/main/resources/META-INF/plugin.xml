@@ -1,0 +1,32 @@
+<idea-plugin>
+    <id>com.luyao.beta</id>
+    <name>Genpat-Plugin</name>
+    <vendor email="rly@pku.edu.cn" url="http://www.pku.edu.cn">Peking University</vendor>
+
+    <description><![CDATA[
+    This is an IntelliJ IDEA Plugin of GenPat.
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="genpat.ApplyAction" class="ApplyAction" text="Apply">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt P"/>
+        </action>
+        <action id="genpat.TraceAction" class="TraceAction" text="Trace" description="TODO">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt T"/>
+        </action>
+
+    </actions>
+</idea-plugin>
