@@ -15,6 +15,10 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+        <applicationConfigurable groupId="tools" displayName="Single File Execution Plugin" id="preferences.SingleFileExecutionConfigurable" instance="GenpatConfigurable" />
+
+        <applicationService serviceInterface="PersistentStateComponent"
+                            serviceImplementation="impl.PersistentStateComponentImpl"/>
     </extensions>
 
     <actions>
