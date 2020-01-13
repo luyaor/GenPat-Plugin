@@ -1,16 +1,19 @@
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GenpatConfigurableGUI {
     private JPanel rootPanel;
-    private JTextField exeNameTextField;
+    private JTextField TextField;
 
     GenpatConfigurableGUI() {
 
+    }
+
+    public JTextField getTextField() {
+        return TextField;
     }
 
     public JPanel getRootPanel() {
@@ -36,21 +39,15 @@ public class GenpatConfigurableGUI {
         rootPanel.setLayout(new GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
         rootPanel.setRequestFocusEnabled(true);
         final JLabel label1 = new JLabel();
-        label1.setText("TODO1");
+        label1.setText("Suggestion");
         rootPanel.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_NORTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(80, 16), null, 0, false));
-        exeNameTextField = new JTextField();
-        exeNameTextField.setAutoscrolls(true);
-        exeNameTextField.setEditable(true);
-        exeNameTextField.setEnabled(true);
-        exeNameTextField.setHorizontalAlignment(10);
-        rootPanel.add(exeNameTextField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        final JLabel label2 = new JLabel();
-        label2.setText("TODO2");
-        label2.setVerticalAlignment(0);
-        rootPanel.add(label2, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_NORTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        final Spacer spacer1 = new Spacer();
-        rootPanel.add(spacer1, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        label1.setLabelFor(exeNameTextField);
+        TextField = new JTextField();
+        TextField.setAutoscrolls(true);
+        TextField.setEditable(true);
+        TextField.setEnabled(true);
+        TextField.setHorizontalAlignment(10);
+        rootPanel.add(TextField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        label1.setLabelFor(TextField);
     }
 
     /**

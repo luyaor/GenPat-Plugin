@@ -1,3 +1,5 @@
+package impl;
+
 import com.intellij.openapi.components.ServiceManager;
 
 public interface PersistentStateComponent {

@@ -3,6 +3,7 @@ import com.intellij.openapi.options.SearchableConfigurable;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import javax.swing.*;
 
 public class GenpatConfigurable implements SearchableConfigurable {
@@ -47,7 +48,6 @@ public class GenpatConfigurable implements SearchableConfigurable {
 
     @Override
     public void apply() throws ConfigurationException {
-
     }
 
     @Override

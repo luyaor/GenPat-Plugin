@@ -1,28 +1,15 @@
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
-import com.intellij.openapi.application.RunResult;
 import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.VisualPosition;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogBuilder;
-import com.intellij.openapi.ui.InputException;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.wm.StatusBar;
-import com.intellij.psi.*;
+import com.intellij.psi.JavaPsiFacade;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementFactory;
+import com.intellij.psi.PsiMethod;
 
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-public class TraceAction extends AnAction {
-
-    static String newStr = null;
-    private final static Logger LOGGER = Logger.getLogger(TraceAction.class.getName());
-
+public class TraceAction extends AnActionWithInit {
     private String changeEditor(Project project, String language, String content) {
         final Editor editor = Editors.createSourceEditor(project, language, content, false);
         try {
@@ -32,6 +19,7 @@ public class TraceAction extends AnAction {
             builder.setTitle("Editor");
             builder.show();
         } finally {
+
             String retSource = editor.getDocument().getText();
             Editors.release(editor);
             return retSource;
@@ -40,43 +28,39 @@ public class TraceAction extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {
-//        final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
-//        CaretModel caretModel = editor.getCaretModel();
-//        String selectedText = caretModel.getCurrentCaret().getSelectedText();
-        Project project = e.getData(PlatformDataKeys.PROJECT);
-        PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
-        PsiElement psielement = e.getData(CommonDataKeys.PSI_ELEMENT);
-
-//        LOGGER.setLevel(Level.ALL);
-//        ConsoleHandler handler = new ConsoleHandler();
-//        LOGGER.addHandler(handler);
-//        LOGGER.info(psielement.toString());
-//        LOGGER.info(psielement.getText());
-//        LOGGER.info(psielement.getContext().toString());
-//        LOGGER.info(psielement.getChildren().toString());
-//        LOGGER.info(psielement.getContainingFile().toString());
-
         try {
-            String str = changeEditor(project, "JAVA", psielement.getText());
-//            newStr = changeEditor(project, "JAVA", selectedText);
+            init(e);
+        } catch (Exception err) {
+            err.printStackTrace();
+            return;
+        }
 
-            PsiElement newMethod = factory.createMethodFromText(str, null);
-            if (newMethod instanceof PsiMethod) {
-                newStr = ((PsiMethod) newMethod).getBody().getText();
-            } else {
+        ApplyAction.transformer.loadPatternSrc(psiCurrentUnit.getText(), psiFile.getText(), classPath);
+
+        PsiElement newUnit;
+        PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
+        try {
+            String inputStr = changeEditor(project, "JAVA", psiCurrentUnit.getText());
+            newUnit = factory.createMethodFromText(inputStr, null);
+            if (!(newUnit instanceof PsiMethod)) {
                 throw new Exception("Input is not a method!");
             }
 
             WriteCommandAction.runWriteCommandAction(project, new Runnable() {
                 @Override
                 public void run() {
-                    psielement.replace(newMethod);
+                    psiCurrentUnit.replace(newUnit);
                 }
             });
 
             Messages.showMessageDialog(project, "Success!", "GenPat-Plugin", Messages.getInformationIcon());
         } catch (Exception err) {
+            Messages.showMessageDialog(project, "Trace Failed!", "WARNING", Messages.getInformationIcon());
             err.printStackTrace();
+            return;
         }
+
+        ApplyAction.transformer.loadPatternTar(newUnit.getText(), psiFile.getText(), classPath);
+        ApplyAction.transformer.extractPattern();
     }
 }

@@ -14,23 +14,30 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-        <applicationConfigurable groupId="tools" displayName="Single File Execution Plugin" id="preferences.SingleFileExecutionConfigurable" instance="GenpatConfigurable" />
+        <applicationConfigurable groupId="tools" displayName="GenPat Plugin"
+                                 id="preferences.SingleFileExecutionConfigurable" instance="GenpatConfigurable"/>
 
-        <applicationService serviceInterface="PersistentStateComponent"
-                            serviceImplementation="impl.PersistentStateComponentImpl"/>
+        <applicationService serviceInterface="impl.PersistentStateComponent"
+                            serviceImplementation="impl.PersistentStateComponent"/>
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
         <action id="genpat.ApplyAction" class="ApplyAction" text="Apply">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt P"/>
-        </action>
-        <action id="genpat.TraceAction" class="TraceAction" text="Trace" description="TODO">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt T"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl G"/>
         </action>
 
+        <action id="genpat.TraceAction" class="TraceAction" text="Trace" description="TODO">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl H"/>
+        </action>
+
+        <action id="genpat.TraceInIDEStartAction" class="TraceInIDEStart" text="LocalTraceStart">
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl S"/>
+        </action>
+
+        <action id="genpat.TraceInIDEEnd" class="TraceInIDEEnd" text="LocalTraceEnd">
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl D"/>
+        </action>
     </actions>
 </idea-plugin>

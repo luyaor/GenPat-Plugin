@@ -1,41 +1,40 @@
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.*;
+import mfix.tools.Transformer;
 
-public class ApplyAction extends AnAction {
+public class ApplyAction extends AnActionWithInit {
+    static Transformer transformer = new Transformer();
 
     @Override
     public void actionPerformed(AnActionEvent e) {
-        Project project = e.getData(PlatformDataKeys.PROJECT);
-        final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
-//        CaretModel caretModel = editor.getCaretModel();
-//        String selectedText = caretModel.getCurrentCaret().getSelectedText();
+        try {
+            init(e);
+        } catch (Exception err) {
+            err.printStackTrace();
+            return;
+        }
 
+        PsiElement psiElementContext = psiCurrentUnit.getContext();
         PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
 
-        PsiElement psiElement = e.getData(CommonDataKeys.PSI_ELEMENT);
-        PsiElement psiElementContext = psiElement.getContext();
         try {
-            String ret = TraceAction.newStr;
-            PsiElement newpsielement = factory.createCodeBlockFromText(ret, psiElementContext);
-//            PsiElement newpsielement = factory.createMethodFromText(ret, null);
+            String ret = transformer.apply(psiCurrentUnit.getText(), classPath);
+
+            PsiElement newpsielement = factory.createMethodFromText(ret, psiElementContext);
 
             WriteCommandAction.runWriteCommandAction(project, new Runnable() {
                 @Override
                 public void run() {
-//                    psielement.replace(newpsielement);
-                    if (psiElement instanceof PsiMethod) {
-                        ((PsiMethod) psiElement).getBody().replace(newpsielement);
+                    if (newpsielement instanceof PsiMethod) {
+                        psiCurrentUnit.replace(newpsielement);
                     }
                 }
             });
 
         } catch (Exception err) {
+            Messages.showMessageDialog(project, "Apply Failed!", "WARNING", null);
             err.printStackTrace();
         }
     }
