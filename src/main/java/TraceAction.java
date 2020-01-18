@@ -4,10 +4,7 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiMethod;
+import com.intellij.psi.*;
 
 public class TraceAction extends AnActionWithInit {
     private String changeEditor(Project project, String language, String content) {
@@ -35,7 +32,8 @@ public class TraceAction extends AnActionWithInit {
             return;
         }
 
-        ApplyAction.transformer.loadPatternSrc(psiCurrentUnit.getText(), psiFile.getText(), classPath);
+//        ApplyAction.transformer.loadPatternSrc(psiCurrentUnit.getText(), psiFile.getText(), classPath);
+        ApplyAction.transformer.loadPatternSrc(methodTransPsi2Genpat((PsiMethod) psiCurrentUnit), psiFile.getText(), classPath);
 
         PsiElement newUnit;
         PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
@@ -60,7 +58,8 @@ public class TraceAction extends AnActionWithInit {
             return;
         }
 
-        ApplyAction.transformer.loadPatternTar(newUnit.getText(), psiFile.getText(), classPath);
+//        ApplyAction.transformer.loadPatternTar(newUnit.getText(), psiFile.getText(), classPath);
+        ApplyAction.transformer.loadPatternTar(methodTransPsi2Genpat((PsiMethod) newUnit), psiFile.getText(), classPath);
         ApplyAction.transformer.extractPattern();
     }
 }

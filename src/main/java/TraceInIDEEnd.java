@@ -1,5 +1,6 @@
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.psi.PsiMethod;
 
 public class TraceInIDEEnd extends AnActionWithInit {
 
@@ -12,7 +13,8 @@ public class TraceInIDEEnd extends AnActionWithInit {
             return;
         }
 
-        ApplyAction.transformer.loadPatternTar(psiCurrentUnit.getText(), psiFile.getText(), classPath);
+//        ApplyAction.transformer.loadPatternTar(psiCurrentUnit.getText(), psiFile.getText(), classPath);
+        ApplyAction.transformer.loadPatternTar(methodTransPsi2Genpat((PsiMethod) psiCurrentUnit), psiFile.getText(), classPath);
         ApplyAction.transformer.extractPattern();
         Messages.showMessageDialog(project, "Trace Finish!", "GenPat-Plugin", Messages.getInformationIcon());
     }

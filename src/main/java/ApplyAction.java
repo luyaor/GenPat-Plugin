@@ -20,7 +20,7 @@ public class ApplyAction extends AnActionWithInit {
         PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
 
         try {
-            String ret = transformer.apply(psiCurrentUnit.getText(), classPath);
+            String ret = transformer.apply(methodTransPsi2Genpat((PsiMethod) psiCurrentUnit), classPath);
 
             PsiElement newpsielement = factory.createMethodFromText(ret, psiElementContext);
 

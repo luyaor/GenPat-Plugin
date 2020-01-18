@@ -8,7 +8,11 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiMethod;
+import com.intellij.psi.PsiParameter;
 import com.intellij.psi.util.PsiTreeUtil;
+import mfix.common.util.Method;
+
+import java.util.ArrayList;
 
 public abstract class AnActionWithInit extends AnAction {
     Project project;
@@ -31,5 +35,15 @@ public abstract class AnActionWithInit extends AnAction {
             Messages.showMessageDialog(project, "Failed!", "WARNING", null);
             throw new GenpatInitException();
         }
+    }
+
+    static public Method methodTransPsi2Genpat(PsiMethod m) {
+        String methodName = m.getName();
+        ArrayList<String> paras = new ArrayList<>();
+        for (PsiParameter para : m.getParameterList().getParameters()) {
+            paras.add(para.getType().getPresentableText());
+        }
+        String retType = m.getReturnType().getPresentableText();
+        return new Method(retType, methodName, paras);
     }
 }
