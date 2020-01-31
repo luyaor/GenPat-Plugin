@@ -16,7 +16,7 @@
 
 ### Usage
 
-*Note: Currently, it only supports with transformation at function(method) level.
+*Note: Currently, it only supports with transformation at function(method) level.*
 
 Trace (for the transformation generation):
 
@@ -26,21 +26,21 @@ Trace (for the transformation generation):
 
     Way A: Start with `Ctrl + Alt + [` , then edit in IDE, finally end with `Ctrl + Alt + ]`
 
-    Way B: `Ctrl + Alt + "-/_"`, then edit in popup editor.
+    Way B: `Ctrl + Alt + -/_`, then edit in popup editor.
 
 Apply (for the transformation application):
 
 ​	1. Choose a target function (let cursor inside the function)
 
-​	2. `Ctrl + Alt + "=/+"`
+​	2. `Ctrl + Alt + =/+`
 
 
 
 ### TODO
 
-	1. Another apply way: global search
- 	2. Signature modification
- 	3. Multi candidates
+1. Another apply way: global search
+2. Signature modification
+3. Multi candidates
 
 
 
