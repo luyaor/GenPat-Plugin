@@ -39,7 +39,7 @@ public class GenpatConfigurableGUI {
         rootPanel.setLayout(new GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
         rootPanel.setRequestFocusEnabled(true);
         final JLabel label1 = new JLabel();
-        label1.setText("Suggestion");
+        label1.setText("");
         rootPanel.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_NORTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(80, 16), null, 0, false));
         TextField = new JTextField();
         TextField.setAutoscrolls(true);

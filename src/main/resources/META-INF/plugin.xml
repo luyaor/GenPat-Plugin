@@ -24,20 +24,20 @@
     <actions>
         <action id="genpat.ApplyAction" class="ApplyAction" text="Apply">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl G"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift alt EQUALS"/>
         </action>
 
         <action id="genpat.TraceAction" class="TraceAction" text="Trace" description="TODO">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl H"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift alt MINUS"/>
         </action>
 
         <action id="genpat.TraceInIDEStartAction" class="TraceInIDEStart" text="LocalTraceStart">
-            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl S"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift alt OPEN_BRACKET"/>
         </action>
 
         <action id="genpat.TraceInIDEEnd" class="TraceInIDEEnd" text="LocalTraceEnd">
-            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl D"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift alt CLOSE_BRACKET"/>
         </action>
     </actions>
 </idea-plugin>
