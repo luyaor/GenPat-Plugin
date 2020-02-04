@@ -19,21 +19,19 @@
 *Note: Currently, it only supports with transformation at function(method) level.*
 
 Trace (for the transformation generation):
-
- 1. Choose a function (let cursor inside the function)
-
- 2. Start with your modification on the function
-
-    Way A: Click *Trace* button in pop-up menu (right mouse click), or `Shift + Alt + -/_`, then edit in popup editor.
-
-    Way B: Start with  `Shift + Alt + [` , then edit in IDE, finally end with `Shift + Alt + ]`
+  
+  1. Choose a function (let cursor inside the function)
+  
+  2. Start with your modification on the function
+  
+      Way A: Click *Trace* button in pop-up menu (right mouse click), or `Shift + Alt + -/_`, then edit in popup editor.
+      Way B: Start with  `Shift + Alt + [` , then edit in IDE, finally end with `Shift + Alt + ]`
 
 
 
 Apply (for the transformation application):
-
-	1. Choose a target function (let cursor inside the function)
- 	2. Click *Apply* button in pop-up menu (right mouse click) or  `Shift + Alt + =/+`
+  1. Choose a target function (let cursor inside the function)
+  2. Click *Apply* button in pop-up menu (right mouse click) or  `Shift + Alt + =/+`
 
 
 
