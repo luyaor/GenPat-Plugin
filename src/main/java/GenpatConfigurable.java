@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class GenpatConfigurable implements SearchableConfigurable {
 
-    GenpatConfigurableGUI mGUI;
+//    GenpatConfigurableGUI mGUI;
 
     @Nls
     @Override
@@ -37,8 +37,9 @@ public class GenpatConfigurable implements SearchableConfigurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-        mGUI = new GenpatConfigurableGUI();
-        return mGUI.getRootPanel();
+//        mGUI = new GenpatConfigurableGUI();
+//        return mGUI.getRoot();
+        return null;
     }
 
     @Override
@@ -57,7 +58,7 @@ public class GenpatConfigurable implements SearchableConfigurable {
 
     @Override
     public void disposeUIResources() {
-        mGUI = null;
+//        mGUI = null;
     }
 
 }

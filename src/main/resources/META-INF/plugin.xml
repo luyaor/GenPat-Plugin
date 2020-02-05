@@ -4,7 +4,7 @@
     <vendor email="rly@pku.edu.cn" url="http://www.pku.edu.cn">Peking University</vendor>
 
     <description><![CDATA[
-    This is an IntelliJ IDEA Plugin of GenPat.
+    This is an IntelliJ IDEA PluginGenpatConfigurable of GenPat.
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -14,14 +14,17 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable groupId="tools" displayName="GenPat Plugin"
-                                 id="preferences.SingleFileExecutionConfigurable" instance="GenpatConfigurable"/>
+        <applicationConfigurable displayName="GenPat Plugin" instance="GenpatConfigurable"/>
 
         <applicationService serviceInterface="impl.PersistentStateComponent"
                             serviceImplementation="impl.PersistentStateComponent"/>
     </extensions>
 
     <actions>
+        <action id="genpat.GlobalSearch" class="GlobalSearch" text="GlobalSearch">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
         <action id="genpat.MultiApplyAction" class="MultiApplyAction" text="MultiApplyAction" description="TODO">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>

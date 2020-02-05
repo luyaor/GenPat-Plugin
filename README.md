@@ -25,6 +25,7 @@ Trace (for the transformation generation):
   2. Start with your modification on the function
   
       Way A: Click *Trace* button in pop-up menu (right mouse click), or `Shift + Alt + -/_`, then edit in popup editor.
+      
       Way B: Start with  `Shift + Alt + [` , then edit in IDE, finally end with `Shift + Alt + ]`
 
 

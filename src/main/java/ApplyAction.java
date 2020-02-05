@@ -16,23 +16,9 @@ public class ApplyAction extends AnActionWithInit {
             return;
         }
 
-        PsiElement psiElementContext = psiCurrentUnit.getContext();
-        PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
-
         try {
             String ret = transformer.apply(methodTransPsi2Genpat((PsiMethod) psiCurrentUnit), classPath);
-
-            PsiElement newpsielement = factory.createMethodFromText(ret, psiElementContext);
-
-            WriteCommandAction.runWriteCommandAction(project, new Runnable() {
-                @Override
-                public void run() {
-                    if (newpsielement instanceof PsiMethod) {
-                        psiCurrentUnit.replace(newpsielement);
-                    }
-                }
-            });
-
+            replace(psiCurrentUnit, str2PsiMethod(ret));
         } catch (Exception err) {
             Messages.showMessageDialog(project, "Apply Failed!", "WARNING", null);
             err.printStackTrace();

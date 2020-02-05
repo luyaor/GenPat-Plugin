@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class GenpatService implements PersistentStateComponent {
     static class State {
-        public int editChoice = 0; // 0 for popup view, 1 for editing in IDE.
+        public int maxChoices = 1;
     }
 
     State myState;
@@ -20,7 +20,4 @@ public class GenpatService implements PersistentStateComponent {
 
     }
 
-    public void loadState(State state) {
-        myState = state;
-    }
 }

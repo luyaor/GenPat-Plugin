@@ -2,13 +2,11 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiParameter;
+import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import mfix.common.util.Method;
 
@@ -19,6 +17,8 @@ public abstract class AnActionWithInit extends AnAction {
     PsiFile psiFile;
     String classPath;
     PsiElement psiCurrentUnit;
+    PsiElement currentPsiElementContext;
+    PsiElementFactory currentProjectFactory;
 
     void init(AnActionEvent e) throws GenpatInitException {
         project = e.getData(PlatformDataKeys.PROJECT);
@@ -35,9 +35,12 @@ public abstract class AnActionWithInit extends AnAction {
             Messages.showMessageDialog(project, "Failed!", "WARNING", null);
             throw new GenpatInitException();
         }
+
+        currentPsiElementContext = psiCurrentUnit.getContext();
+        currentProjectFactory = JavaPsiFacade.getInstance(project).getElementFactory();
     }
 
-    static public Method methodTransPsi2Genpat(PsiMethod m) {
+    public Method methodTransPsi2Genpat(PsiMethod m) {
         String methodName = m.getName();
         ArrayList<String> paras = new ArrayList<>();
         for (PsiParameter para : m.getParameterList().getParameters()) {
@@ -46,4 +49,18 @@ public abstract class AnActionWithInit extends AnAction {
         String retType = m.getReturnType().getPresentableText();
         return new Method(retType, methodName, paras);
     }
+
+    public void replace(PsiElement oldElement, PsiElement newElement) {
+        WriteCommandAction.runWriteCommandAction(project, new Runnable() {
+            @Override
+            public void run() {
+                oldElement.replace(newElement);
+            }
+        });
+    }
+
+    public PsiMethod str2PsiMethod(String str) {
+        return currentProjectFactory.createMethodFromText(str, currentPsiElementContext);
+    }
+
 }
