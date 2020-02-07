@@ -35,8 +35,8 @@ Apply (for the transformation application):
   2. Click *Apply* button in pop-up menu (right mouse click) or  `Shift + Alt + =/+`.
 
 Global Search
-  1. Click *GlobalSearch* button in pop-up menu (right mouse click).
-  2. Popup Editor will show all matched results (contains both before and after changing), Click *Replace* for the candidates you would like to apply.
+  1. Click *Tools->GenPat->GlobalSearch*.
+  2. Popup Editor will show all matched results in current file (contains both before and after changing), Click *Replace* for the candidates you would like to apply.
 
 ### TODO
 

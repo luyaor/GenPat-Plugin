@@ -5,6 +5,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.*;
+import impl.GenpatService;
 
 public class TraceAction extends AnActionWithInit {
     private String changeEditor(Project project, String language, String content) {
@@ -16,7 +17,6 @@ public class TraceAction extends AnActionWithInit {
             builder.setTitle("Editor");
             builder.show();
         } finally {
-
             String retSource = editor.getDocument().getText();
             Editors.release(editor);
             return retSource;
@@ -61,5 +61,6 @@ public class TraceAction extends AnActionWithInit {
 //        ApplyAction.transformer.loadPatternTar(newUnit.getText(), psiFile.getText(), classPath);
         ApplyAction.transformer.loadPatternTar(methodTransPsi2Genpat((PsiMethod) newUnit), psiFile.getText(), classPath);
         ApplyAction.transformer.extractPattern();
+        GenpatService.savePattern(ApplyAction.transformer.getPattern());
     }
 }

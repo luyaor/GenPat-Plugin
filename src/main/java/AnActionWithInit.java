@@ -22,6 +22,7 @@ public abstract class AnActionWithInit extends AnAction {
 
     void init(AnActionEvent e) throws GenpatInitException {
         project = e.getData(PlatformDataKeys.PROJECT);
+        currentProjectFactory = JavaPsiFacade.getInstance(project).getElementFactory();
         psiCurrentUnit = e.getData(CommonDataKeys.PSI_ELEMENT);
         psiFile = e.getData(CommonDataKeys.PSI_FILE);
         classPath = psiFile.getVirtualFile().getPath();
@@ -30,14 +31,17 @@ public abstract class AnActionWithInit extends AnAction {
             int caretOffset = editor.getCaretModel().getOffset();
             psiCurrentUnit = psiFile.findElementAt(caretOffset);
         }
-        psiCurrentUnit = PsiTreeUtil.getParentOfType(psiCurrentUnit, PsiMethod.class, false);
-        if (psiCurrentUnit == null) {
-            Messages.showMessageDialog(project, "Failed!", "WARNING", null);
-            throw new GenpatInitException();
-        }
 
-        currentPsiElementContext = psiCurrentUnit.getContext();
-        currentProjectFactory = JavaPsiFacade.getInstance(project).getElementFactory();
+        psiCurrentUnit = PsiTreeUtil.getParentOfType(psiCurrentUnit, PsiMethod.class, false);
+
+//        if (psiCurrentUnit == null) {
+//            Messages.showMessageDialog(project, "Failed!", "WARNING", null);
+//            throw new GenpatInitException();
+//        }
+
+        if (psiCurrentUnit != null) {
+            currentPsiElementContext = psiCurrentUnit.getContext();
+        }
     }
 
     public Method methodTransPsi2Genpat(PsiMethod m) {

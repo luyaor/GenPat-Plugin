@@ -20,10 +20,25 @@
                             serviceImplementation="impl.PersistentStateComponent"/>
     </extensions>
 
+
     <actions>
-        <action id="genpat.GlobalSearch" class="GlobalSearch" text="GlobalSearch">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </action>
+        <group id="genpat.GroupedActions" text="GenPat" popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="genpat.GroupedActions"/>
+
+<!--            <action id="genpat-PatternLoadAction" class="PatternLoadAction" text="LoadPattern">-->
+<!--            </action>-->
+
+            <action id="genpat.TraceInIDEStartAction" class="TraceInIDEStart" text="LocalTraceStart">
+                <keyboard-shortcut keymap="$default" first-keystroke="shift alt OPEN_BRACKET"/>
+            </action>
+
+            <action id="genpat.TraceInIDEEnd" class="TraceInIDEEnd" text="LocalTraceEnd">
+                <keyboard-shortcut keymap="$default" first-keystroke="shift alt CLOSE_BRACKET"/>
+            </action>
+
+            <action id="genpat.GlobalSearch" class="GlobalSearch" text="GlobalSearch">
+            </action>
+        </group>
 
         <action id="genpat.MultiApplyAction" class="MultiApplyAction" text="MultiApplyAction" description="TODO">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
@@ -37,14 +52,6 @@
         <action id="genpat.TraceAction" class="TraceAction" text="Trace" description="TODO">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <keyboard-shortcut keymap="$default" first-keystroke="shift alt MINUS"/>
-        </action>
-
-        <action id="genpat.TraceInIDEStartAction" class="TraceInIDEStart" text="LocalTraceStart">
-            <keyboard-shortcut keymap="$default" first-keystroke="shift alt OPEN_BRACKET"/>
-        </action>
-
-        <action id="genpat.TraceInIDEEnd" class="TraceInIDEEnd" text="LocalTraceEnd">
-            <keyboard-shortcut keymap="$default" first-keystroke="shift alt CLOSE_BRACKET"/>
         </action>
 
     </actions>
