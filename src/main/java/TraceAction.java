@@ -63,4 +63,5 @@ public class TraceAction extends AnActionWithInit {
         ApplyAction.transformer.extractPattern();
         GenpatService.savePattern(ApplyAction.transformer.getPattern());
     }
+
 }

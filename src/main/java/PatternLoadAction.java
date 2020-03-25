@@ -18,7 +18,7 @@ public class PatternLoadAction extends AnActionWithInit {
 
         JPanel all = new JPanel();
         all.setLayout(new BoxLayout(all, BoxLayout.Y_AXIS));
-        JFrame frame = new JFrame("Global Search Result");
+        JFrame frame = new JFrame("Pattern List");
 
         int cnt = 0;
         for (Pattern p : GenpatService.getPatternList()) {

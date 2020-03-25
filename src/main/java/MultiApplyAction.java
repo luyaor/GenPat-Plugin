@@ -12,6 +12,7 @@ import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.table.JBTable;
 import mfix.tools.Transformer;
+import com.intellij.openapi.util.Pair;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -34,56 +35,22 @@ public class MultiApplyAction extends AnActionWithInit {
         List<String> candidates = ApplyAction.transformer.applyAll(methodTransPsi2Genpat((PsiMethod) psiCurrentUnit), classPath);
 
         CodeStyleManager codeStyleManager = CodeStyleManager.getInstance(project);
-        PsiElement psiElementContext = psiCurrentUnit.getContext();
-        PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
 
         if (candidates == null) {
             Messages.showMessageDialog(project, "Apply Failed!", "WARNING", null);
             return;
         }
 
-
-        JPanel all = new JPanel();
-        all.setLayout(new BoxLayout(all, BoxLayout.Y_AXIS));
-
-        JFrame frame = new JFrame("FrameDemo");
-
-        int cnt = 0;
-        for (String res : candidates) {
-            PsiElement newpsielement;
-            try {
-                newpsielement = factory.createMethodFromText(res, psiElementContext);
-                codeStyleManager.reformat(newpsielement);
-                res = newpsielement.getText();
-            } catch (Exception err) {
-                err.printStackTrace();
-                continue;
-            }
-
-            cnt += 1;
-            Editor editor = Editors.createSourceEditor(project, "JAVA", res, true);
-            JButton confirmButton = new JButton("Choice " + cnt, null);
-            confirmButton.addActionListener(actionEvent -> {
-                WriteCommandAction.runWriteCommandAction(project, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (newpsielement instanceof PsiMethod) {
-                            psiCurrentUnit.replace(newpsielement);
-                        }
-                    }
-                });
-                frame.dispose();
-            });
-
-            JPanel panel = new JPanel();
-            panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-            panel.add(editor.getContentComponent());
-            panel.add(confirmButton);
-
-            all.add(panel);
+        List<Pair<PsiElement, PsiElement>> matchedElements = new ArrayList<>();
+        for (String p : candidates) {
+            PsiMethod targetMethod = str2PsiMethod(p);
+            codeStyleManager.reformat(targetMethod);
+            matchedElements.add(new Pair<>(psiCurrentUnit, targetMethod));
         }
 
-        frame.getContentPane().add(all, BorderLayout.CENTER);
+        MultiTransViewer viewer = new MultiTransViewer(project, matchedElements);
+        JFrame frame = new JFrame("Multi Apply Result");
+        frame.getContentPane().add(viewer.getMultiTransViewer(), BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
     }

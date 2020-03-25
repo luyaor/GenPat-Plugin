@@ -18,6 +18,9 @@
 
         <applicationService serviceInterface="impl.PersistentStateComponent"
                             serviceImplementation="impl.PersistentStateComponent"/>
+
+<!--        <additionalTextAttributes scheme="Default" file="colorSchemes/MyLangDefault.xml"/>-->
+
     </extensions>
 
 
