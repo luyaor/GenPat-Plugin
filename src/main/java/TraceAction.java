@@ -33,15 +33,13 @@ public class TraceAction extends AnActionWithInit {
             return;
         }
 
-//        ApplyAction.transformer.loadPatternSrc(psiCurrentUnit.getText(), psiFile.getText(), classPath);
         Transformer newTrans = new Transformer();
 
         newTrans.loadPatternSrc(methodTransPsi2Genpat((PsiMethod) psiCurrentUnit), psiFile.getText(), classPath);
         PsiElement newUnit;
         PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
-        String inputStr, outputStr;
         try {
-            inputStr = changeEditor(project, "JAVA", psiCurrentUnit.getText());
+            String inputStr = changeEditor(project, "JAVA", psiCurrentUnit.getText());
             newUnit = factory.createMethodFromText(inputStr, null);
             if (!(newUnit instanceof PsiMethod)) {
                 throw new Exception("Input is not a method!");

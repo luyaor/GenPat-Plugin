@@ -15,8 +15,14 @@ public class TraceInIDEEnd extends AnActionWithInit {
             return;
         }
 
-        ApplyAction.transformer.loadPatternTar(methodTransPsi2Genpat((PsiMethod) psiCurrentUnit), psiFile.getText(), classPath);
-        ApplyAction.transformer.extractPattern();
+        Transformer newTrans = new Transformer();
+        newTrans.loadPatternSrc(methodTransPsi2Genpat((PsiMethod) TraceInIDEStart.startPsiElement), TraceInIDEStart.startText, classPath);
+        newTrans.loadPatternTar(methodTransPsi2Genpat((PsiMethod) psiCurrentUnit), psiFile.getText(), classPath);
+        newTrans.extractPattern();
+
+        ServiceManager.getService(GenpatService.class).addTrans(newTrans);
+        ApplyAction.setTransformer(newTrans);
+
         Messages.showMessageDialog(project, "Trace Finish!", "GenPat-Plugin", Messages.getInformationIcon());
     }
 }

@@ -16,13 +16,13 @@ import mfix.tools.Transformer;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class MultiTransViewer extends JPanel
-        implements ListSelectionListener {
-
+public class TransListViewer extends JPanel implements ListSelectionListener {
     Project curProject;
     private int curIndex;
     private JPanel mainPanel;
@@ -54,12 +54,13 @@ public class MultiTransViewer extends JPanel
 
     public void addTrans(Transformer trans) {
         transformerList.add(trans);
-        String transName = "#" + diffList.size();
-        listModel.addElement(transName);
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr = dateformat.format(System.currentTimeMillis());
+        listModel.addElement(dateStr);
         addDiff(trans.getBeforeChangeCode(), trans.getAfterChangeCode());
     }
 
-    public MultiTransViewer(Project project) {
+    public TransListViewer(Project project) {
         curProject = project;
         diffList = new Vector<>();
         matchedElementList = new ArrayList<>();
@@ -80,12 +81,15 @@ public class MultiTransViewer extends JPanel
         DialogBuilder diffBuilder = new DialogBuilder(curProject);
         diffPanel = DiffManager.getInstance().createRequestPanel(curProject, diffBuilder, diffBuilder.getWindow());
         showDiff.add(diffPanel.getComponent());
+        showDiff.setPreferredSize(new Dimension(1000,300));
 
-        JScrollPane pictureScrollPane = new JScrollPane(showDiff);
+        JScrollPane diffScrollPane = new JScrollPane(showDiff);
 
         //Create a split pane with the two scroll panes in it.
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listScrollPane, pictureScrollPane);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listScrollPane, diffScrollPane);
+
         splitPane.setOneTouchExpandable(true);
+        splitPane.setDividerLocation(100);
 
         mainPanel = new JPanel();
         mainPanel.add(splitPane);

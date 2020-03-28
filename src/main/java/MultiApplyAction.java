@@ -1,24 +1,11 @@
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.codeStyle.CodeStyleManager;
-import com.intellij.ui.components.JBScrollPane;
-import com.intellij.ui.table.JBTable;
-import mfix.tools.Transformer;
 import com.intellij.openapi.util.Pair;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class MultiApplyAction extends AnActionWithInit {
@@ -41,7 +28,7 @@ public class MultiApplyAction extends AnActionWithInit {
             return;
         }
 
-        MultiTransViewer viewer = new MultiTransViewer(project);
+        TransListViewer viewer = new TransListViewer(project);
         for (String p : candidates) {
             PsiMethod targetMethod = str2PsiMethod(p);
             codeStyleManager.reformat(targetMethod);
