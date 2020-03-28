@@ -1,3 +1,4 @@
+import com.intellij.openapi.components.State;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SearchableConfigurable;
 import org.jetbrains.annotations.Nls;

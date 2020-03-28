@@ -16,8 +16,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable displayName="GenPat Plugin" instance="GenpatConfigurable"/>
 
-        <applicationService serviceInterface="impl.PersistentStateComponent"
-                            serviceImplementation="impl.PersistentStateComponent"/>
+        <applicationService serviceImplementation="GenpatService"/>
 
 <!--        <additionalTextAttributes scheme="Default" file="colorSchemes/MyLangDefault.xml"/>-->
 
@@ -31,16 +30,22 @@
 <!--            <action id="genpat-PatternLoadAction" class="PatternLoadAction" text="LoadPattern">-->
 <!--            </action>-->
 
-            <action id="genpat.TraceInIDEStartAction" class="TraceInIDEStart" text="LocalTraceStart">
-                <keyboard-shortcut keymap="$default" first-keystroke="shift alt OPEN_BRACKET"/>
+<!--            <action id="genpat.TraceInIDEStartAction" class="TraceInIDEStart" text="Local Trace Start">-->
+<!--                <keyboard-shortcut keymap="$default" first-keystroke="shift alt OPEN_BRACKET"/>-->
+<!--            </action>-->
+
+<!--            <action id="genpat.TraceInIDEEndAction" class="TraceInIDEEnd" text="Local Trace End">-->
+<!--                <keyboard-shortcut keymap="$default" first-keystroke="shift alt CLOSE_BRACKET"/>-->
+<!--            </action>-->
+
+            <action id="genpat.GlobalSearch" class="GlobalSearch" text="Global Search">
             </action>
 
-            <action id="genpat.TraceInIDEEnd" class="TraceInIDEEnd" text="LocalTraceEnd">
-                <keyboard-shortcut keymap="$default" first-keystroke="shift alt CLOSE_BRACKET"/>
+            <action id="genpat.PatternLoadAction" class="PatternLoadAction" text="Pattern Load">
+            </action>
+            <action id="genpat.PatternListCleanAction" class="PatternListCleanAction" text="Clean Pattern List">
             </action>
 
-            <action id="genpat.GlobalSearch" class="GlobalSearch" text="GlobalSearch">
-            </action>
         </group>
 
         <action id="genpat.MultiApplyAction" class="MultiApplyAction" text="MultiApplyAction" description="TODO">

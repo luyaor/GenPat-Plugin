@@ -41,14 +41,14 @@ public class MultiApplyAction extends AnActionWithInit {
             return;
         }
 
-        List<Pair<PsiElement, PsiElement>> matchedElements = new ArrayList<>();
+        MultiTransViewer viewer = new MultiTransViewer(project);
         for (String p : candidates) {
             PsiMethod targetMethod = str2PsiMethod(p);
             codeStyleManager.reformat(targetMethod);
-            matchedElements.add(new Pair<>(psiCurrentUnit, targetMethod));
+            viewer.addMatchedElement(new Pair<>(psiCurrentUnit, targetMethod));
         }
+        viewer.addConfirmButton();
 
-        MultiTransViewer viewer = new MultiTransViewer(project, matchedElements);
         JFrame frame = new JFrame("Multi Apply Result");
         frame.getContentPane().add(viewer.getMultiTransViewer(), BorderLayout.CENTER);
         frame.pack();

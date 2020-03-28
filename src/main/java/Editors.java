@@ -9,6 +9,7 @@ public class Editors {
         final Editor editor = factory.createEditor(factory.createDocument(content), project, FileTypeManager.getInstance()
                 .getFileTypeByExtension(language), readOnly);
         editor.getSettings().setRefrainFromScrolling(false);
+        editor.getSettings().setUseCustomSoftWrapIndent(true);
         return editor;
     }
 

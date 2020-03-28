@@ -51,7 +51,7 @@ public class GlobalSearch extends AnActionWithInit {
 
         CodeStyleManager codeStyleManager = CodeStyleManager.getInstance(project);
 
-        List<Pair<PsiElement, PsiElement>> matchedElements = new ArrayList<>();
+        MultiTransViewer viewer = new MultiTransViewer(project);
 
         psiFile.acceptChildren(new JavaRecursiveElementVisitor() {
             @Override
@@ -61,14 +61,13 @@ public class GlobalSearch extends AnActionWithInit {
                 if (ret != null) {
                     PsiMethod targetMethod = str2PsiMethod(ret);
                     codeStyleManager.reformat(targetMethod);
-                    matchedElements.add(new Pair<>(curMethod, targetMethod));
+                    viewer.addMatchedElement(new Pair<>(curMethod, targetMethod));
                 }
             }
         });
 
-//        System.out.println("matched number = " + matchedElements.size());
+        viewer.addConfirmButton();
 
-        MultiTransViewer viewer = new MultiTransViewer(project, matchedElements);
         JFrame frame = new JFrame("Global Search Result");
         frame.getContentPane().add(viewer.getMultiTransViewer(), BorderLayout.CENTER);
         frame.pack();

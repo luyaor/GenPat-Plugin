@@ -5,7 +5,11 @@ import com.intellij.psi.*;
 import mfix.tools.Transformer;
 
 public class ApplyAction extends AnActionWithInit {
-    static Transformer transformer = new Transformer();
+    static Transformer transformer;
+
+    public static void setTransformer(Transformer transformer) {
+        ApplyAction.transformer = transformer;
+    }
 
     @Override
     public void actionPerformed(AnActionEvent e) {
