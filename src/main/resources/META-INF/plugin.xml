@@ -1,17 +1,17 @@
 <idea-plugin>
     <id>com.luyao.beta</id>
-    <name>Genpat-Plugin</name>
+    <name>GenPater</name>
     <vendor email="rly@pku.edu.cn" url="http://www.pku.edu.cn">Peking University</vendor>
 
     <description><![CDATA[
-    This is an IntelliJ IDEA Plugin of GenPat(an automated transformation inference tool that leverages a big code corpus to guide the abstraction of transformation patterns). Check it out: https://github.com/luyaor/GenPat-Plugin
+    This is an automated transformation inference tool that leverages a big code corpus to guide the abstraction of transformation patterns. Check it out: https://github.com/luyaor/GenPat-Plugin
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <!-- uncomment to enable plugin in all products
+    <!-- uncomment to enable plugin in all products-->
     <depends>com.intellij.modules.lang</depends>
-    -->
+
 
     <extensions defaultExtensionNs="com.intellij">
 <!--        <applicationConfigurable displayName="GenPat Plugin" instance="GenpatConfigurable"/>-->
