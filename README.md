@@ -44,6 +44,10 @@ Global Search
 2. User setting for multi candidates
 4. Support with method signature modification
 
+### Related Project
+
+https://github.com/xgdsmileboy/GenPat
+
 
 ### Publication
 
