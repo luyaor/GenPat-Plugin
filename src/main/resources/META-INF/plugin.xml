@@ -4,7 +4,7 @@
     <vendor email="rly@pku.edu.cn" url="http://www.pku.edu.cn">Peking University</vendor>
 
     <description><![CDATA[
-    This is an IntelliJ IDEA PluginGenpatConfigurable of GenPat.
+    This is an IntelliJ IDEA Plugin of GenPat(an automated transformation inference tool that leverages a big code corpus to guide the abstraction of transformation patterns). Check it out: https://github.com/luyaor/GenPat-Plugin
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -14,7 +14,7 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable displayName="GenPat Plugin" instance="GenpatConfigurable"/>
+<!--        <applicationConfigurable displayName="GenPat Plugin" instance="GenpatConfigurable"/>-->
 
         <applicationService serviceImplementation="GenpatService"/>
 
@@ -50,14 +50,14 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
 
-        <action id="genpat.ApplyAction" class="ApplyAction" text="Apply">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="shift alt EQUALS"/>
+        <action id="genpat.TraceAction" class="TraceAction" text="Trace">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift alt MINUS"/>
         </action>
 
-        <action id="genpat.TraceAction" class="TraceAction" text="Trace">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="shift alt MINUS"/>
+        <action id="genpat.ApplyAction" class="ApplyAction" text="Apply">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift alt EQUALS"/>
         </action>
 
     </actions>
