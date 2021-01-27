@@ -1,5 +1,6 @@
 # GenPat-Plugin
 
+🚀 News: GenPater is now [on Jetbrains Marketplace](https://plugins.jetbrains.com/plugin/15935-genpater)! Just search *GenPater* in Plugin Marketplace to try it out!
 
 
 ### Pipeline
