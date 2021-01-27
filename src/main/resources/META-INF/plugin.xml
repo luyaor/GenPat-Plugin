@@ -17,6 +17,7 @@
 <!--        <applicationConfigurable displayName="GenPat Plugin" instance="GenpatConfigurable"/>-->
 
         <applicationService serviceImplementation="GenpatService"/>
+        <postStartupActivity implementation="PostStartupActivity"/>
 
 <!--        <additionalTextAttributes scheme="Default" file="colorSchemes/MyLangDefault.xml"/>-->
 
@@ -46,16 +47,16 @@
 
         </group>
 
-        <action id="genpat.MultiApplyAction" class="MultiApplyAction" text="MultiApplyAction">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </action>
+<!--        <action id="genpat.MultiApplyAction" class="MultiApplyAction" text="MultiApplyAction">-->
+<!--            <add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
+<!--        </action>-->
 
-        <action id="genpat.TraceAction" class="TraceAction" text="Trace">
+        <action id="genpat.TraceAction" class="TraceAction" text="GenPater-Trace">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
             <keyboard-shortcut keymap="$default" first-keystroke="shift alt MINUS"/>
         </action>
 
-        <action id="genpat.ApplyAction" class="ApplyAction" text="Apply">
+        <action id="genpat.ApplyAction" class="ApplyAction" text="GenPater-Apply">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
             <keyboard-shortcut keymap="$default" first-keystroke="shift alt EQUALS"/>
         </action>

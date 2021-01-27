@@ -25,6 +25,7 @@ import java.util.Vector;
 public class TransListViewer extends JPanel implements ListSelectionListener {
     Project curProject;
     private int curIndex;
+    private JList selectList;
     private JPanel mainPanel;
     private DiffRequestPanel diffPanel;
     private DefaultListModel listModel;
@@ -32,6 +33,7 @@ public class TransListViewer extends JPanel implements ListSelectionListener {
     private Vector<DiffRequest> diffList;
     private List<Pair<PsiElement, PsiElement>> matchedElementList;
     private List<Transformer> transformerList;
+    private List<Boolean> replacedList;
 
     public void addDiff(String before, String after) {
         final DiffContent beforeContent = DiffContentFactory.getInstance().create(before);
@@ -45,6 +47,7 @@ public class TransListViewer extends JPanel implements ListSelectionListener {
 
     public void addMatchedElement(Pair<PsiElement, PsiElement> matchedElement) {
         matchedElementList.add(matchedElement);
+        replacedList.add(false);
         PsiMethod before = (PsiMethod) matchedElement.first;
         PsiMethod after = (PsiMethod) matchedElement.second;
         String transName = "#" + diffList.size() + ":" + before.getName();
@@ -65,10 +68,11 @@ public class TransListViewer extends JPanel implements ListSelectionListener {
         diffList = new Vector<>();
         matchedElementList = new ArrayList<>();
         transformerList = new ArrayList<>();
+        replacedList = new ArrayList<>();
 
         listModel = new DefaultListModel();
         //Create the selectList of images and put it in a scroll pane.
-        JList selectList = new JList(listModel);
+        selectList = new JList(listModel);
         selectList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         selectList.setSelectedIndex(0);
         selectList.addListSelectionListener(this);
@@ -101,7 +105,12 @@ public class TransListViewer extends JPanel implements ListSelectionListener {
             WriteCommandAction.runWriteCommandAction(curProject, new Runnable() {
                 @Override
                 public void run() {
-                    matchedElementList.get(curIndex).first.replace(matchedElementList.get(curIndex).second);
+                    if (!replacedList.get(curIndex)) {
+                        matchedElementList.get(curIndex).first.replace(matchedElementList.get(curIndex).second);
+                        replacedList.set(curIndex, true);
+                        listModel.set(curIndex, "[Replaced]" + listModel.get(curIndex));
+                        selectList.setSelectedIndex((curIndex + 1) % listModel.size());
+                    }
                 }
             });
         });

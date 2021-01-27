@@ -34,9 +34,7 @@ public class GenpatService implements PersistentStateComponent<GenpatService.Sta
         myState = state;
     }
 
-
     public void addTrans(Transformer pattern) {
         myState.transList.add(pattern);
     }
-
 }
